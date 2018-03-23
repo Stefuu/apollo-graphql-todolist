@@ -9,10 +9,6 @@ const client = new ApolloClient({
 })
 
 class App extends Component {
-  state = {
-    tasks: []
-  }
-
   render () {
     return (
       <ApolloProvider client={client}>
