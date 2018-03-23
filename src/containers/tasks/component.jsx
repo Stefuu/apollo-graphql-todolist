@@ -1,9 +1,14 @@
 import React from 'react'
+import Task from './../task'
 
 const TaskComponent = ({tasks}) => (
   <ul>
     {tasks.map((task, index) => (
-      <li key={index}>{task.name}</li>
+      <Task
+        key={index}
+        name={task.name}
+        id={task.id}
+      />
     ))}
   </ul>
 )

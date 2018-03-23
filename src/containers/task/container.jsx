@@ -1,20 +1,20 @@
 import React from 'react'
 import Component from './component'
 import { withApollo } from 'react-apollo'
-import { GET_TASKS } from './../../graphql/querys'
+import { REMOVE_TASK } from './../../graphql/mutations'
 
 class Tasks extends React.Component {
   state = {
     tasks: []
   }
 
-  componentDidMount = async () => {
-    const response = await this.props.client.query({
-      query: GET_TASKS()
+  remove = async (id) => {
+    const response = await this.props.client.mutate({
+      mutation: REMOVE_TASK(id)
     })
 
-    const { loading, error, tasks } = response.data
-    this.setState({loading, error, tasks})
+    const { loading, error } = response.data
+    this.setState({loading, error})
   }
 
   render () {
@@ -27,7 +27,9 @@ class Tasks extends React.Component {
 
     return (
       <Component
-        tasks={this.state.tasks}
+        name={this.props.name}
+        id={this.props.id}
+        remove={this.remove}
       />
     )
   }

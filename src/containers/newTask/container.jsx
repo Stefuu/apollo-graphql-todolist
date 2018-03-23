@@ -1,7 +1,7 @@
 import React from 'react'
 import Component from './component'
 import { withApollo } from 'react-apollo'
-import gql from 'graphql-tag'
+import { CREATE_TASK } from './../../graphql/mutations'
 
 class NewTask extends React.Component {
   state = {
@@ -10,20 +10,12 @@ class NewTask extends React.Component {
 
   save = async () => {
     const response = await this.props.client.mutate({
-      mutation: this.query()
+      mutation: CREATE_TASK(this.state.name)
     })
 
     const { loading, error } = response.data
     this.setState({loading, error})
   }
-
-  query = () => gql`
-    mutation {
-      createTask(name: "${this.state.name}", done: false) {
-        name
-      }
-    }
-  `
 
   onChange = (e) => this.setState({name: e.target.value})
 
