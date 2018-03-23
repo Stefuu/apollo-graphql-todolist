@@ -18,10 +18,12 @@ export const REMOVE_TASK = (id) => {
     `
 }
 
-export const UPDATE_TASK = (id) => {
+export const UPDATE_TASK = (id, done, name) => {
   return gql`
         mutation {
-            updateTask(id: "${id}")
+            updateTask(id: "${id}", done: ${done}, name: "${name}"){
+                name
+            }
         }
     `
 }

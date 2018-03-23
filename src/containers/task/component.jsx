@@ -1,16 +1,22 @@
 import React from 'react'
 
-const TaskComponent = ({name, id, remove, editing, toggleEdit, save}) => (
+const TaskComponent = ({name, id, remove, editing, toggleEdit, save, onChange}) => (
   <li>
-    <div>
-      <span>{name}</span>
-      {
-        editing
-          ? (<button onClick={(id) => save(id)}>save</button>)
-          : (<button onClick={toggleEdit}>edit</button>)
-      }
-
-    </div>
+    {
+      editing
+        ? (
+          <div>
+            <input onChange={onChange} type='text' />
+            <button onClick={(id) => save(id)}>save</button>
+          </div>
+        )
+        : (
+          <div>
+            <span>{name}</span>
+            <button onClick={toggleEdit}>edit</button>
+          </div>
+        )
+    }
     <button onClick={() => remove(id)}>delete</button>
   </li>
 )

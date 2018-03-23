@@ -6,6 +6,7 @@ import { REMOVE_TASK, UPDATE_TASK } from './../../graphql/mutations'
 class Task extends React.Component {
   state = {
     name: this.props.name,
+    done: this.props.done,
     editing: false
   }
 
@@ -19,8 +20,9 @@ class Task extends React.Component {
   }
 
   save = async () => {
+    console.log(this.state.name)
     const response = await this.props.client.mutate({
-      mutation: UPDATE_TASK(this.props.id)
+      mutation: UPDATE_TASK(this.props.id, this.state.done, this.state.name)
     })
 
     const { loading, error } = response.data
@@ -28,6 +30,8 @@ class Task extends React.Component {
   }
 
   toggleEdit = () => this.setState({ editing: !this.state.editing })
+
+  onChange = (e) => this.setState({name: e.target.value})
 
   render () {
     if (this.state.loading) {
@@ -45,6 +49,7 @@ class Task extends React.Component {
         editing={this.state.editing}
         toggleEdit={this.toggleEdit}
         save={this.save}
+        onChange={this.onChange}
       />
     )
   }

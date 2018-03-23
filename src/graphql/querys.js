@@ -6,6 +6,7 @@ export const GET_TASKS = () => {
             tasks {
                 id
                 name
+                done
             }
         }
     `
